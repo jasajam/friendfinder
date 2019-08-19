@@ -1,5 +1,15 @@
 // 2 routes: get route to /survey going to survey.html
 // / which leads to home.html
 
+ var path = require("path");
 
-// for help see hot restaurant - server.js + the routes there
+ module.exports = function(app) {
+
+    app.get("/survey", function(req, res) {
+        res.sendFile(path.join(__dirname, "../public/survey.html"));
+    });
+
+    app.get("*", function(req, res) {
+        res.sendFile(path.join(__dirname, "../public/home.html"));
+    });
+ }

@@ -5,26 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Document</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://kit.fontawesome.com/470d32f9d6.js"></script>
+    <title>Friend Finder</title>
 </head>
 <body>
     <div class="container my-3">
-        <div>
-            <div class="mx-auto" style="width: 600px">
-                <h1>So What Kind of Friend Are You?</h1>
-            </div>
+        <div class="container">
+            <div class="jumbotron">
+                <div class="mx-auto">
+                    <h1 class="display-4">So What Kind of Friend Are You?</h1>
+                </div>
+                <hr class="my-4">
 
-            <h4>Please complete this survey so that Friend Finder can understand what kind of friend you are and what kind of friend you're looking for!</h4>
-        
-            <p>Rate how true this statement is for you on a scale of 1-5, 
-                with 1 indicating, "No way, Jose; not true for me at all!!" 
-                and 5 indicating, "Oh yes, that's totally me." </p>
+                <p class="lead">Complete this survey so that Friend Finder can understand what kind of friend you are and what kind of friend you're looking for!</p>
+                
+                <a class="btn btn-primary btn-lg" href="/" role="button"><i class="fas fa-home"></i></a>
         </div>
 
-        <form>
+        <form id="get-match">
+            <div>
+                <p>Rate how true this statement is for you on a scale of 1-5, 
+                    with 1 indicating, "No way, Jose; not true for me at all!!" 
+                    and 5 indicating, "Oh yes, that's totally me."</p>
+            </div>
+
+            <div class="form-group">
+                <label for="name" name="name" class="col-form-label">My name is:</label>
+                <input type="text" class="form-control" id="name">         
+            </div>
+
+            <div class="form-group">
+                <label for="photo" name="photo" class="col-form-label">My Photo:</label>
+                <input type="url" class="form-control" id="photo" required>         
+            </div>
+
             <div class="form-group">
                 <label for="q-1" name="question1" class="col-form-label">I'm an introverted person.</label>
-                <select class="form-control" id="q-1">
+                <select class="form-control" id="q-1" required>
+                    <option></option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -34,8 +53,9 @@
             </div>
         
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I like doing activities with friends instead of just sitting around shooting the s***.</label>
-                <select class="form-control" id="q-1">
+                <label for="q-2" name="question2" class="col-form-label">I like doing activities with friends instead of just sitting around shooting the s***.</label>
+                <select class="form-control" id="q-2" required>
+                    <option></option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>                        
@@ -45,8 +65,9 @@
             </div>
         
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I am very open with my emotions (aka I'm gushy / warm and fuzzy / emotional).</label>
-                <select class="form-control" id="q-1">
+                <label for="q-3" name="question3" class="col-form-label">I am very open with my emotions (aka I'm gushy / warm and fuzzy / emotional).</label>
+                <select class="form-control" id="q-3" required>
+                    <option></option>
                     <option>1</option>
                     <option>2</option>                    
                     <option>3</option>
@@ -56,8 +77,9 @@
             </div>  
         
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I'm a chatty Kathy.</label>
-                <select class="form-control" id="q-1">
+                <label for="q-4" name="question4" class="col-form-label">I'm a chatty Kathy.</label>
+                <select class="form-control" id="q-4" required>
+                    <option></option>
                     <option>1</option>                        
                     <option>2</option>                    
                     <option>3</option>
@@ -67,8 +89,9 @@
             </div>
         
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I like to be intellectual and share in that with friends.</label>
-                <select class="form-control" id="q-1">                    
+                <label for="q-5" name="question5" class="col-form-label">I like to be intellectual and share in that with friends.</label>
+                <select class="form-control" id="q-5" required>                    
+                    <option></option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>                        
@@ -79,8 +102,9 @@
         
             
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I have loads of time for my friends.</label>
-                <select class="form-control" id="q-1">
+                <label for="q-6" name="question6" class="col-form-label">I have loads of time for my friends.</label>
+                <select class="form-control" id="q-6" required>
+                    <option></option>
                     <option>1</option>
                     <option>2</option>                    
                     <option>3</option>                        
@@ -91,8 +115,9 @@
         
         
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I tend to see and talk to the friends I have often.</label>
-                <select class="form-control" id="q-1">
+                <label for="q-7" name="question7" class="col-form-label">I tend to see and talk to the friends I have often.</label>
+                <select class="form-control" id="q-7" required>
+                    <option></option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -102,8 +127,9 @@
             </div>
          
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I think it's always better when you're doing something with a buddy.</label>
-                <select class="form-control" id="q-1">                        
+                <label for="q-8" name="question8" class="col-form-label">I think it's always better when you're doing something with a buddy.</label>
+                <select class="form-control" id="q-8" required>                        
+                    <option></option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -113,8 +139,9 @@
             </div>
         
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">I keep close frienships with a few people instead of having less close relationships with lots of people.</label>
-                <select class="form-control" id="q-1">
+                <label for="q-9" name="question9" class="col-form-label">I keep close frienships with a few people instead of having less close relationships with lots of people.</label>
+                <select class="form-control" id="q-9" required>
+                    <option></option>
                     <option>1</option>                        
                     <option>2</option>
                     <option>3</option>
@@ -124,8 +151,9 @@
             </div>
         
             <div class="form-group">
-                <label for="q-1" name="question1" class="col-form-label">My friends are often unique and interesting, maybe even weird, vs. trendy, in-the-know, etc.</label>
-                <select class="form-control" id="q-1">
+                <label for="q-10" name="question10" class="col-form-label">My friends are often unique and interesting, maybe even weird, vs. trendy, in-the-know, etc.</label>
+                <select class="form-control" id="q-10" required>
+                    <option></option>
                     <option>1</option>                        
                     <option>2</option>
                     <option>3</option>
@@ -134,13 +162,176 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg">Submit Quiz!</button>
+            <button class="btn btn-primary btn-lg" type="submit">See Results!</button>
         </form>
+
+        <div>
+            <h4>See all Possible Friends</h4>
+            <ul>
+                <li><a href="/api/friends" target="_blank">Friends Data (API)</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal" id="friend-modal" tabindex="-1" role="dialog" aria-labelledby="matchModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="matchModal">Best Match(es)</h5>
+                  <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button> -->
+                </div>
+                <div class="modal-body">
+                    <!-- <div id="match-pic"></div> -->
+                    <p>Name: <span id="match-name"></span></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+    function getCurrentSurveyScores() {
+        var currentScores = [];
+        
+        for (var i = 1; i <= 10; i++) {
+             currentScores.push($("#q-" + i).val().trim());
+        }
+
+        // console.log(currentScores);
+        return currentScores;
+    }
+
+    function getCurrentSurveyResults() {
+        var currentRes = {
+            name: $("#name").val().trim(),
+            photo: $("#photo").val().trim()
+        };
+        
+        currentRes.scores = getCurrentSurveyScores();
+
+        console.log(currentRes);
+        return currentRes;
+    }
+
+    // function saveNewFriend(request) {
+    //     $.post("/api/friends", request, function(response) {
+    //         console.log(response);
+    //         determineMatch()
+    //     })
+    // }
+
+    // function determineMatch(arr1, arr2) {
+    //     console.log(arr1.scores, arr2.scores);
+    // }
+
+    // function runFriendsQuery() {
+
+
+    //     $.ajax({ url: "api/friends", method: "GET" })
+    //     .then(function(friends) {
+    //         console.log(friends);
+    //         console.log("------------------------------------");
+
+    //         // for (var i = 0; i < friends.length; i++) {
+    //             // logic for comparing values input through survey to what's already in friends array
+    //                 // loop through each object in array
+    //                     // compare survey's score vals with object at current index
+    //                         // difference b/t each score
+    //                     // add that up
+    //                     // save it to a var - go on - if new comparison produces smaller total difference, it becomes the var
+    //                     // when finish with looping, the object that was the source of the var, gets displayed
+                
+    //         // }
+    //         return friends;
+    //         // need this return bestPotentialFriend;
+    //     });
+    // }
+
+    // function showFriends(friendsObj) {
+        // var matchPic = $("#match-pic").html("<img>");
+        // matchPic.attr("src", friendsObj.photo);
+        // var matchName = $("#match-name").text(friendsObj.name);
+        // $("#friend-modal").modal('show');
+        // var friendDisplay = $("<div>").addClass("modal fade");
+        // friendDisplay.attr("#friend-modal");
+        // var centerDisplay = $("<div>").addClass("modal-dialog modal-dialog-centered");
+        // var displayBody = $("<div>").addClass("modal-content");
+        // var displayTitle = $("<div>").addClass("modal-header");
+        // displayTitle.html("<h5 class=modal-title>Best Match</h5>");
+        // displayBody.append(displayTitle);
+        // centerDisplay.append(displayBody);
+        // friendDisplay.append(centerDisplay);
+        // $(friendDisplay).modal('show');
+    // }
+    
+    $("#get-match").on("submit", function(e) {
+    //     // alert("meatball");
+    //     // var bestPotentialFriend = runFriendsQuery();
+    //     // showFriends(bestPotentialFriend);
+        e.preventDefault();
+        // $("#friend-modal").show();
+        // var currentScores = getCurrentSurveyScores();
+        var newestFriend = getCurrentSurveyResults();
+        // saveNewFriend(newestFriend);
+        // determineMatch(newestFriend, )
+
+        // current least difference - 40 points bc that's the max amount of point difference possible b/t 2 users
+        var currentLeastDif = 40;
+        var matchesArr = [];
+
+        $.post("/api/friends", newestFriend, function(response) {
+            // console.log(response);
+            // console.log(newestFriend.scores, response.scores);
+
+            // iterate all current friends but skip last friend bc that will be current user
+            for (var i = 0; i < response.length - 1; i++) {
+                var otherFriend = response[i];
+                var currentDif = 0;
+                for (var j = 0; j < otherFriend.scores.length; j++) {
+                    // testing to make sure I am iterating through each friend's scores in the same way
+                    // console.log("current user score at " + j + ": ", newestFriend.scores[j], "friend " + i + "score at " + j, otherFriend.scores[j]);
+                    
+                    // setting a variable called current difference (i.e. continue adding users' difference in points at current question)
+                    currentDif += Math.abs(newestFriend.scores[j] - otherFriend.scores[j]);
+                }
+
+                // log of what the final difference in each user's points is
+                console.log("round " + i + " currentDif: ", currentDif);
+
+
+                // if current total difference is less than the leastTotalDifference, reset the leastTotalDifference AND add the other friend to array of potential matches for this user 
+                    // also make sure keep track of what the total difference in points was with this user
+                if (currentDif <= currentLeastDif) {
+                    currentLeastDif = currentDif;
+                    console.log("This one was closer. New currentLeastDif is: " + currentLeastDif);
+                    otherFriend.totalDifWithNewFriend = currentLeastDif;
+
+                    matchesArr.push(otherFriend);
+                }
+            }
+
+            console.log("Final current least dif is: ", currentLeastDif);
+            console.log("Best match(es): ", matchesArr);
+        })
+    });
+
+    $('.close').on("click", function() {
+        $("#friend-modal").hide();
+        window.location.reload();
+    });
+
+});
+
+</script>
 </html>
 
-<!-- see reserve.html on hot restaurant - what happens when you submit form -->
-    <!-- you post the data to the array   -->
-    <!-- survey formatting - web dev bootcamp again (Code, udemy) -->
+ <!-- see reserve.html on hot restaurant - what happens when you submit form -->
+   <!-- you post the data to the array   -->
