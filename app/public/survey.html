@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://kit.fontawesome.com/470d32f9d6.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Friend Finder</title>
 </head>
 <body>
@@ -172,32 +174,13 @@
             </ul>
         </div>
     </div>
-
-    <div class="modal" id="friend-modal" tabindex="-1" role="dialog" aria-labelledby="matchModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="matchModal">Best Match(es)</h5>
-                  <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button> -->
-                </div>
-                <div class="modal-body">
-                    <!-- <div id="match-pic"></div> -->
-                    <p>Name: <span id="match-name"></span></p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     
 </body>
 
 <script type="text/javascript">
     $(document).ready(function() {
 
+    // function which will get survey scores for current site visitor
     function getCurrentSurveyScores() {
         var currentScores = [];
         
@@ -209,6 +192,7 @@
         return currentScores;
     }
 
+    // function which will get all responses of current site visitor (calls score function above)
     function getCurrentSurveyResults() {
         var currentRes = {
             name: $("#name").val().trim(),
@@ -221,94 +205,80 @@
         return currentRes;
     }
 
-    // function saveNewFriend(request) {
-    //     $.post("/api/friends", request, function(response) {
-    //         console.log(response);
-    //         determineMatch()
-    //     })
-    // }
+    // function to create a modal showing all best matches of current site visitor
+    function showFriends(matchArr, num) {
+        // creating the body of the modal
+        var matchDisplay = $("<div>").addClass("modal fade match-modal");
+        var centerDisplay = $("<div>").addClass("modal-dialog modal-dialog-centered");
+        var displayBody = $("<div>").addClass("modal-content modal-body");
+        var displayTitle = $("<div>").addClass("modal-header");
+        displayTitle.html("<h5 class=modal-title>Best Match(es)</h5>");
+        displayBody.append(displayTitle);
 
-    // function determineMatch(arr1, arr2) {
-    //     console.log(arr1.scores, arr2.scores);
-    // }
+        // creating the main content of the modal - the matches
+        // if the array of best possible matches (i.e. the array of friends who at some point had least difference in points with the current site visitor) has just 1 friend, just show that friend in the match modal
+        // otherwise, loop through this array and add any friend to the modal whose survey score least differs from the current site vistor's
+        // if there are multiple friends on the modal, they all have the same difference in points from the current site visitor
+        if (matchArr.length === 1) {
+            console.log("I, first condition, am running");
+            var matchDetails = $("<div>");
+            var matchDetails = "<p>" + matchArr[0].name + "</p>";
+            matchDetails += "<img src=" + matchArr[0].photo + "/>";
+            $(displayBody).append(matchDetails);
+        } else {
+            for (var i = 0; i < matchArr.length; i++) {
+                var matchOption = matchArr[i];
+                // console.log(matchOption);
 
-    // function runFriendsQuery() {
-
-
-    //     $.ajax({ url: "api/friends", method: "GET" })
-    //     .then(function(friends) {
-    //         console.log(friends);
-    //         console.log("------------------------------------");
-
-    //         // for (var i = 0; i < friends.length; i++) {
-    //             // logic for comparing values input through survey to what's already in friends array
-    //                 // loop through each object in array
-    //                     // compare survey's score vals with object at current index
-    //                         // difference b/t each score
-    //                     // add that up
-    //                     // save it to a var - go on - if new comparison produces smaller total difference, it becomes the var
-    //                     // when finish with looping, the object that was the source of the var, gets displayed
-                
-    //         // }
-    //         return friends;
-    //         // need this return bestPotentialFriend;
-    //     });
-    // }
-
-    // function showFriends(friendsObj) {
-        // var matchPic = $("#match-pic").html("<img>");
-        // matchPic.attr("src", friendsObj.photo);
-        // var matchName = $("#match-name").text(friendsObj.name);
-        // $("#friend-modal").modal('show');
-        // var friendDisplay = $("<div>").addClass("modal fade");
-        // friendDisplay.attr("#friend-modal");
-        // var centerDisplay = $("<div>").addClass("modal-dialog modal-dialog-centered");
-        // var displayBody = $("<div>").addClass("modal-content");
-        // var displayTitle = $("<div>").addClass("modal-header");
-        // displayTitle.html("<h5 class=modal-title>Best Match</h5>");
-        // displayBody.append(displayTitle);
-        // centerDisplay.append(displayBody);
-        // friendDisplay.append(centerDisplay);
-        // $(friendDisplay).modal('show');
-    // }
+                if (matchOption.totalDifWithNewFriend === num) {
+                    
+                    var matchDetails = $("<div>");
+                    var matchDetails = "<p>" + matchOption.name + "</p>";
+                    matchDetails += "<img src=" + matchOption.photo + "/>";
+                    $(displayBody).append(matchDetails);
+        
+                }
+            }
+        }
+        
+        // creating the footer of the match modal (with the close button)
+        var footerClose = $("<div>").addClass("modal-footer");
+        footerClose.html("<button type='button' class='btn btn-primary' data-dismiss='modal'>Close</button>");
+        displayBody.append(footerClose);
+        centerDisplay.append(displayBody);
+        matchDisplay.append(centerDisplay);
+        $(matchDisplay).modal('show');
+    }
     
+    // function for form submission -- main matching functionality 
     $("#get-match").on("submit", function(e) {
-    //     // alert("meatball");
-    //     // var bestPotentialFriend = runFriendsQuery();
-    //     // showFriends(bestPotentialFriend);
+        // prevent default, initialize variables for matching logic - 
+        // point difference variable to beat (40 is the maximum difference in points any two users could have)
+        // array of best possible matches
+        // get the current site visitor's scores (using function above) to compare scores of other saved friends with
         e.preventDefault();
-        // $("#friend-modal").show();
-        // var currentScores = getCurrentSurveyScores();
         var newestFriend = getCurrentSurveyResults();
-        // saveNewFriend(newestFriend);
-        // determineMatch(newestFriend, )
-
-        // current least difference - 40 points bc that's the max amount of point difference possible b/t 2 users
         var currentLeastDif = 40;
         var matchesArr = [];
 
+        // add the current site visitor to the json of currently saved friends (so they can possibly be matched with other visitors later)
+        // then do the following with the response (which is a json of previously saved friends)
         $.post("/api/friends", newestFriend, function(response) {
-            // console.log(response);
-            // console.log(newestFriend.scores, response.scores);
 
-            // iterate all current friends but skip last friend bc that will be current user
+            // iterate through each previously saved friend
+            // iterate through each of these friend's scores and the current site visitor's scores
+            // add the difference (using absolute value) to get the total positive difference in points between each user's scores
             for (var i = 0; i < response.length - 1; i++) {
                 var otherFriend = response[i];
                 var currentDif = 0;
                 for (var j = 0; j < otherFriend.scores.length; j++) {
-                    // testing to make sure I am iterating through each friend's scores in the same way
-                    // console.log("current user score at " + j + ": ", newestFriend.scores[j], "friend " + i + "score at " + j, otherFriend.scores[j]);
-                    
-                    // setting a variable called current difference (i.e. continue adding users' difference in points at current question)
+
                     currentDif += Math.abs(newestFriend.scores[j] - otherFriend.scores[j]);
                 }
 
-                // log of what the final difference in each user's points is
                 console.log("round " + i + " currentDif: ", currentDif);
 
-
-                // if current total difference is less than the leastTotalDifference, reset the leastTotalDifference AND add the other friend to array of potential matches for this user 
-                    // also make sure keep track of what the total difference in points was with this user
+                // if the current total difference is less than or equal to the smallest total difference, add the other friend to array of potential matches for current site visitor
                 if (currentDif <= currentLeastDif) {
                     currentLeastDif = currentDif;
                     console.log("This one was closer. New currentLeastDif is: " + currentLeastDif);
@@ -320,18 +290,17 @@
 
             console.log("Final current least dif is: ", currentLeastDif);
             console.log("Best match(es): ", matchesArr);
-        })
-    });
 
-    $('.close').on("click", function() {
-        $("#friend-modal").hide();
-        window.location.reload();
+            // use the above function for making the match modal to actually get the current site vistor's best match(es)
+            showFriends(matchesArr, currentLeastDif);
+            // also clear the current site visitor's from the form as the modal pops up so that it is available for new filling out
+            $( '#get-match' ).each(function(){
+                this.reset();
+            });
+        })
     });
 
 });
 
 </script>
 </html>
-
- <!-- see reserve.html on hot restaurant - what happens when you submit form -->
-   <!-- you post the data to the array   -->
